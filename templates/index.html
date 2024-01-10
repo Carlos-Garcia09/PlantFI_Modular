@@ -11,7 +11,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,24 +42,51 @@
     </div>
     <!-- Spinner End -->
 
-    
-
-
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h1 class="m-0">PlantFI</h1>
+            <img src="{% static 'img/Logo_PlantFI.png' %}" alt="Logo" style="max-height: 45px;">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="btn btn-primary py-4 px-lg-4 rounded-0 d-none d-lg-block">Inicio</a>
-                
+                <!-- Sólo si el usuario inicio sesión -->
+                {% if user.is_authenticated %}
+                <!-- sub-menú dropdown para cerrar sesión -->
+                <div class="dropdown">
+                    <a href="#" class="nav-item nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hola, 
+                        {% if user.first_name %}
+                            {{ user.first_name|lower|title }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                    </ul>
                 </div>
-                
+
+                <!-- Boton para escanear-->
+                <a href="/analisis/" id="escanear" class="btn btn-light py-4 px-lg-4 rounded-0 d-none d-lg-block"><img src="{% static 'img/icon/icon-12.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Analizar planta</a>
+                <!-- Escanear movil-->
+                <a href="/analisis/" id="escanear" class="btn btn-light py-4 px-lg-4 rounded-0 d-block d-lg-none"><img src="{% static 'img/icon/icon-12.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Analizar planta</a>
+                <!-- Boton para mi jardin-->
+                <a href="/mi_jardin/" id="jardin" class="btn btn-primary py-4 px-lg-4 rounded-0 d-none d-lg-block"><img src="{% static 'img/icon/icon-11.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Mi jardín</a>
+                <!-- Mi jardin movil-->
+                <a href="/mi_jardin/" id="jardin" class="btn btn-primary py-4 px-lg-4 rounded-0 d-block d-lg-none"><img src="{% static 'img/icon/icon-11.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Mi jardín</a>
+                <!-- Si no hay usuario -->
+                {% else %}
+                <a href="/login/" class="nav-item nav-link me-4">Iniciar sesión</a>
+                <a href="/signup/" class="nav-item nav-link me-4">Registrarse</a>
+                <!-- Boton para escanear-->
+                <a href="/analisis/" id="escanear" class="btn btn-light py-4 px-lg-4 rounded-0 d-none d-lg-block"><img src="{% static 'img/icon/icon-12.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Analizar planta</a>
+                <!-- Escanear movil-->
+                <a href="/analisis/" id="escanear" class="btn btn-light py-4 px-lg-4 rounded-0 d-block d-lg-none"><img src="{% static 'img/icon/icon-12.png' %}" style="max-height: 100%; max-width: 100%; height: auto; width: auto;"> Analizar planta</a>
+                {% endif %}  
+                <!-- <a href="/" class="btn btn-primary py-4 px-lg-4 rounded-0 d-none d-lg-block">Inicio</a>                                 -->
             </div>
         </div>
     </nav>
@@ -77,7 +104,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <h1 class="display-1 text-white mb-5 animated slideInDown">Descubre las plantas que te Rodean!</h1>
-                                    <a href="/about/" class="btn btn-primary py-sm-3 px-sm-4">Identifica tu planta</a>
+                                    <a href="/analisis/" class="btn btn-primary py-sm-3 px-sm-4">Identifica tu planta <iconify-icon icon="ph:plant-fill"></iconify-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +117,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-7">
                                     <h1 class="display-1 text-white mb-5 animated slideInDown">Identifica lo que tiene tu Jardín</h1>
-                                    <a href="/about/" class="btn btn-primary py-sm-3 px-sm-4">Identifica tu planta</a>
+                                    <a href="/analisis/" class="btn btn-primary py-sm-3 px-sm-4">Identifica tu planta <iconify-icon icon="ph:plant-fill"></iconify-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +149,8 @@
                                 <i class="fa fa-times text-primary"></i>
                             </div>
                             <div class="ps-3">
-                                <h4>Sin Costo Alguno</h4>
-                                <span>Identifica todas las plantas que gustes</span>
+                                <h4>Explora sin restricciones</h4>
+                                <span>Identifica todas las plantas que desees sin costo alguno.</span>
                             </div>
                         </div>
                     </div>
@@ -135,8 +162,8 @@
                                 <i class="fa fa-users text-primary"></i>
                             </div>
                             <div class="ps-3">
-                                <h4> Nuestro Equipo</h4>
-                                <span>Estaremos esperando con ansias tus comentarios para mejorar</span>
+                                <h4>Nuestro Equipo</h4>
+                                <span>¡Tu opinión importa! Estamos comprometidos a proporcionarte la mejor experiencia.</span>
                             </div>
                         </div>
                     </div>
@@ -145,11 +172,11 @@
                     <div class="bg-white shadow d-flex align-items-center h-100 px-5" style="min-height: 160px;">
                         <div class="d-flex">
                             <div class="flex-shrink-0 btn-lg-square rounded-circle bg-light">
-                                <i class="fa fa-phone text-primary"></i>
+                                <iconify-icon icon="ion:infinite" style="color: #348e38;" width="20"></iconify-icon>
                             </div>
                             <div class="ps-3">
-                                <h4>Disponible 24/7</h4>
-                                <span>Puedes usarlo en cualquier parte a cualquier hora</span>
+                                <h4>Acceso Ilimitado, Siempre</h4>
+                                <span>¡Las plantas no toman descanso y nosotros tampoco!</span>
                             </div>
                         </div>
                     </div>
@@ -164,9 +191,14 @@
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="fs-5 fw-bold text-primary">Porque la gente nos elige!</p>
-                    <h1 class="display-5 mb-4">Estas son algunas de las razones por las cuales prefieren nuestro Website!</h1>
-                    <p class="mb-4">Nuestro sitio web de reconocimiento de plantas ofrece una experiencia excepcional por varias razones. En primer lugar, la accesibilidad es clave. A diferencia de las aplicaciones móviles, no es necesario descargar ni instalar nada. Puedes acceder a nuestra plataforma desde cualquier dispositivo con conexión a Internet, lo que la hace fácilmente accesible en cualquier momento y en cualquier lugar.</p>
+                    <p class="fs-5 fw-bold text-primary">Herramientas Útiles para Tu Pasión</p>
+                    <h1 class="display-5 mb-4">Descubre Por Qué PlantFi es la Elección Preferida</h1>
+                    <p class="mb-4">
+                        En PlantFi, nos enorgullece brindar una experiencia totalmente satisfactoria. Desde la identificación precisa de plantas hasta consejos personalizados de cuidado, estamos comprometidos a superar tus expectativas en cada paso.
+                    </p>
+                    <p class="mb-4">
+                        Ofrecemos herramientas útiles para nutrir tu pasión por la jardinería, proporcionándote conocimientos detallados y consejos prácticos para el cuidado de tus plantas. ¡Tu satisfacción es nuestra prioridad!
+                    </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="row g-4 align-items-center">
@@ -213,10 +245,10 @@
                     <img class="img-fluid rounded" data-wow-delay="0.1s" src="{% static 'img/about.jpg' %}">
                 </div>
                 <div class="col-lg-6 col-md-7 wow fadeInUp" data-wow-delay="0.3s">
-                    <h1 class="display-1 text-primary mb-0">1</h1>
-                    <p class="text-primary mb-4">Un Año de Experiencia</p>
-                    <h1 class="display-5 mb-4">Tratando Siempre De Darte La Mejor Solución</h1>
-                    <p class="mb-4">Nuestro Website de reconocimiento de plantas no solo es una herramienta innovadora para los amantes de la jardinería y la botánica, sino que también desempeña un papel vital en la promoción de la conciencia ambiental y la conservación de la naturaleza. Con un simple escaneo de una planta, cualquier persona puede identificarla al instante, aprender más sobre sus características y cuidados específicos, y contribuir al registro de biodiversidad.</p>
+                    <h1 class="display-1 text-primary mb-0">Top 1</h1>
+                    <p class="text-primary mb-4">¡Más de 1,000 Plantas Identificadas!</p>
+                    <h1 class="display-5 mb-4">¿Qué Estás Esperando?</h1>
+                    <p class="mb-4">Descubre PlantFi hoy y desata tu pasión por las plantas. Con un reconocimiento preciso, información detallada y herramientas útiles, te ofrecemos una experiencia botánica única. Únete a nuestra comunidad comprometida con la naturaleza y contribuye a la conservación del mundo verde. ¡Haz que cada planta cuente con PlantFi!</p>
                     
                 </div>
                 <div class="col-lg-3 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
@@ -225,14 +257,15 @@
                             <div class="border-start ps-4">
                                 <i class="fa fa-award fa-3x text-primary mb-3"></i>
                                 <h4 class="mb-3">Top 1</h4>
-                                <span>Durante la clase y sin haber visto los demás proyectos nosotros mismos nos coronamos como el mejor proyecto</span>
+                                <span>PlantFi se destaca como el líder en reconocimiento de plantas gracias a su avanzada tecnología de identificación y su extenso catálogo de más de 1,000 plantas.</span>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-12">
                             <div class="border-start ps-4">
                                 <i class="fa fa-users fa-3x text-primary mb-3"></i>
-                                <h4 class="mb-3">Humildad</h4>
-                                <span>La dejamos en la casa</span>
+                                <h4 class="mb-3">El equipo detrás de PlantFi</h4>
+                                <span>En PlantFi, nuestro equipo está formado por apasionados amantes de la naturaleza y expertos en tecnología. Nos dedicamos a proporcionarte la mejor experiencia botánica posible.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -242,59 +275,13 @@
     </div>
     <!-- About End -->
 
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="fs-5 fw-bold text-primary">Nuestro Equipo</p>
-                <h1 class="display-5 mb-5">Miembros del equipo dedicados y experimentados</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item rounded">
-                        <img class="img-fluid" src="{% static 'img/uziel.jpg' %}" alt="">
-                        <div class="team-text">
-                            <h4 class="mb-0">Uziel Cornejo Olivares</h4>
-                            <p class="text-primary">Front and Back Developer</p>
-                            <div class="team-social d-flex">
-                                <a class="btn btn-square rounded-circle me-2" href="https://www.facebook.com/uzyel.cornejoolivares"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square rounded-circle me-2" href="https://www.linkedin.com/in/uziel-cornejo-67b673188"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-square rounded-circle me-2" href="https://www.instagram.com/uziel_69/"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded">
-                        <img class="img-fluid" src="{% static 'img/carlos.jpg' %}" alt="">
-                        <div class="team-text">
-                            <h4 class="mb-0">Carlos Martin Garcia Madrigal</h4>
-                            <p class="text-primary">Front and Back Developer</p>
-                            <div class="team-social d-flex">
-                                <a class="btn btn-square rounded-circle me-2" href="https://www.facebook.com/carlos.madrigal.5268"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-square rounded-circle me-2" href="https://www.instagram.com/carloschiva09/"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
-
 
     <!-- Copyright Start -->
     <div class="container-fluid copyright py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">PlantFI</a>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                    Designed By Carlos & Uziel</a>
+                    &copy; <a class="border-bottom">PlantFI</a>
                 </div>
             </div>
         </div>
@@ -323,5 +310,7 @@
 
 <!-- Template Javascript -->
 <script src="{% static 'js/main.js' %}"></script>
+
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 </html>
