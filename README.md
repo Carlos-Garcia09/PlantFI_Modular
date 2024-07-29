@@ -30,5 +30,5 @@ We developed the model using the PyTorch library in Python, as this was the tool
 <img src='images/pytorch_logo_icon_169823.png' width='540'>
 </p>
 
-# Demostration:
-
+# Application:
+**Demostrative video:** [https://youtu.be/6eZ5MRNjNoU](https://youtu.be/WnA4fIpaWWc)
