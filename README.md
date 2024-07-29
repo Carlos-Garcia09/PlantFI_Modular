@@ -31,4 +31,4 @@ We developed the model using the PyTorch library in Python, as this was the tool
 </p>
 
 # Application:
-**Demostrative video:** [https://youtu.be/6eZ5MRNjNoU](https://youtu.be/WnA4fIpaWWc)
+**Demostrative video:** https://youtu.be/R7unvt_Pugc
