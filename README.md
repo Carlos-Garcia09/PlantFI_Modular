@@ -8,13 +8,10 @@ Has it often happened to you that someone gives you a plant or you see a plant o
 # Development
 For the development of our website, we used Django, as our site is built with Python due to the ease it offers for creating the site and connecting the AI. Additionally, the HTML templates also include JavaScript programming for all the animations on our website, ensuring it looks as good as possible.
 <p align="center">
-<img src='images/1280px-Flask_logo.svg.png' width='360'>
-<img src='images/2560px-Gunicorn_logo_2010.svg.png' width='430'>
+<img src='images/Python-logo-notext.svg.png' width='360'>
+<img src='images/Django-Logo.png' width='430'>
 </p>
 
-<p align="center">
-<img src='images/Python-logo-notext.svg.png' width='240'>
-</p>
 
 <p align="center">
 <img src='images/logo-html-5-css-javascript-source-code-for-the-taking-23.png' width='390'>
